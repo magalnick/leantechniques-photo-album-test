@@ -5,9 +5,9 @@
 /storage/*.key
 /vendor
 /ztrash
-.env
-.env.backup
 .env*
+.env.backup
+!.env
 !.env.dev
 !.env.example
 !.env.production
