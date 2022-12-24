@@ -7,7 +7,12 @@ use Exception;
 
 class LeanTechniquesPhotoAlbumModel extends PhotoAlbumAbstractModel
 {
-    public function getAlbum(int $album_id): array
+    /**
+     * @param mixed $album_id
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getAlbum($album_id): array
     {
         if (!$this->isValidAlbumId($album_id)) {
             throw new Exception("Invalid album ID: $album_id", 400);

@@ -76,6 +76,30 @@ class LeanTechniquesPhotoAlbumModelTest extends TestCase
      * @return void
      * @throws Exception
      */
+    public function testGetAlbum_isEmpty(): void
+    {
+        $this->expectException(ArgumentCountError::class);
+        PhotoAlbumModel::factory()->getAlbum();
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function testGetAlbum_isNotNumeric(): void
+    {
+        $this->setUpFaker();
+        $album_id = $this->faker->sha256;
+        $this->expectException(Exception::class);
+        PhotoAlbumModel::factory()->getAlbum($album_id);
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
     public function testGetAlbum_noResults(): void
     {
         $album_id = 1000000;
