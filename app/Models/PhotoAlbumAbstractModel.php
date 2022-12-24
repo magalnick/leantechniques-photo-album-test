@@ -18,9 +18,9 @@ abstract class PhotoAlbumAbstractModel implements PhotoAlbumModelInterface
 
     /**
      * @param mixed $album_id
-     * @return $this
+     * @return int
      */
-    public function isValidAlbumId($album_id): bool
+    public function scrubAlbumId($album_id): int
     {
         if (!is_numeric($album_id)) {
             throw new Exception('Album ID must be an integer', 400);
@@ -31,6 +31,6 @@ abstract class PhotoAlbumAbstractModel implements PhotoAlbumModelInterface
             throw new Exception('Album ID must be a positive integer', 400);
         }
 
-        return true;
+        return $album_id;
     }
 }

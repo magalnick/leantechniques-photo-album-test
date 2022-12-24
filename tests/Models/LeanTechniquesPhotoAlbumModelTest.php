@@ -17,10 +17,10 @@ class LeanTechniquesPhotoAlbumModelTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function testIsValidAlbumId_isEmpty(): void
+    public function testScrubAlbumId_empty(): void
     {
         $this->expectException(ArgumentCountError::class);
-        PhotoAlbumModel::factory()->isValidAlbumId();
+        PhotoAlbumModel::factory()->scrubAlbumId();
     }
 
     /**
@@ -28,22 +28,22 @@ class LeanTechniquesPhotoAlbumModelTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function testIsValidAlbumId_isNotNumeric(): void
+    public function testScrubAlbumId_notNumeric(): void
     {
         $this->setUpFaker();
         $album_id = $this->faker->sha256;
         $this->expectException(Exception::class);
-        PhotoAlbumModel::factory()->isValidAlbumId($album_id);
+        PhotoAlbumModel::factory()->scrubAlbumId($album_id);
     }
 
     /**
      * @test
      * @return void
      */
-    public function testIsValidAlbumId_is0(): void
+    public function testScrubAlbumId_0(): void
     {
         $this->expectException(Exception::class);
-        PhotoAlbumModel::factory()->isValidAlbumId(0);
+        PhotoAlbumModel::factory()->scrubAlbumId(0);
     }
 
     /**
@@ -52,10 +52,10 @@ class LeanTechniquesPhotoAlbumModelTest extends TestCase
      * @param $album_id
      * @return void
      */
-    public function testIsValidAlbumId_isNegative($album_id): void
+    public function testScrubAlbumId_negative($album_id): void
     {
         $this->expectException(Exception::class);
-        PhotoAlbumModel::factory()->isValidAlbumId($album_id);
+        PhotoAlbumModel::factory()->scrubAlbumId($album_id);
     }
 
     /**
@@ -64,10 +64,10 @@ class LeanTechniquesPhotoAlbumModelTest extends TestCase
      * @param $album_id
      * @return void
      */
-    public function testIsValidAlbumId_isPositive($album_id): void
+    public function testScrubAlbumId_positive($album_id): void
     {
-        $expected = true;
-        $actual   = PhotoAlbumModel::factory()->isValidAlbumId($album_id);
+        $expected = $album_id;
+        $actual   = PhotoAlbumModel::factory()->scrubAlbumId($album_id);
         $this->assertEquals($expected, $actual);
     }
 

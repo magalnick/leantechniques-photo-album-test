@@ -14,11 +14,7 @@ class LeanTechniquesPhotoAlbumModel extends PhotoAlbumAbstractModel
      */
     public function getAlbum($album_id): array
     {
-        if (!$this->isValidAlbumId($album_id)) {
-            throw new Exception("Invalid album ID: $album_id", 400);
-        }
-
-        $album_id  = (int) $album_id;
+        $album_id  = $this->scrubAlbumId($album_id);
         $album_url = sprintf(
             config('lean-techniques.photo-album.base-url-album'),
             $album_id
