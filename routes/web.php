@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('site.main-template', [
         'page'  => 'leantechniques-photo-album',
+        'js'    => 'leantechniques-photo-album',
         'title' => 'Photo Album',
     ]);
 });
