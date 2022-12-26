@@ -1,4 +1,8 @@
 <script>
+    // use this as a security feature so that the link to open the image modal
+    // doesn't have the image URL as one of the arguments to the function
+    var photoList = {};
+
     class PhotoAlbum {
         static getAlbum(albumId) {
             let testAlbumButton = $("#test-album-button");
@@ -55,8 +59,10 @@
         static htmlIze(album) {
             let output = "";
             output += '<div class="row mt-2">';
+            photoList = {};
             for (let i in album) {
                 let photo = album[i];
+                photoList[photo.id] = photo;
                 output += this.displayThumbnail(photo);
             }
             output += "</div>\n";
@@ -70,7 +76,7 @@
             let output = "";
             output += '<div class="col text-center">';
             output += "<figure>";
-            output += "<a href=\"javascript:PhotoAlbum.launchPhotoInModal(" + photo['id'] + ", '" + photo['title'] + "', '" + photo['url'] + "');\"><img src=\"" + photo['thumbnailUrl'] + '" alt="' + photo['title'] + '" class="figure-img img-fluid shadow rounded" style="width: 150px; height: 150px; min-width: 150px;" /></a>';
+            output += "<a href=\"javascript:PhotoAlbum.launchPhotoInModal(" + photo['id'] + ");\"><img src=\"" + photo['thumbnailUrl'] + '" alt="' + photo['title'] + '" class="figure-img img-fluid shadow rounded" style="width: 150px; height: 150px; min-width: 150px;" /></a>';
             output += "<figcaption class=\"col\">" + this.photoDescription(photo['id'], photo['title']) + "</figcaption>";
             output += "</figure>";
             output += "</div>";
@@ -78,12 +84,13 @@
             return output;
         }
 
-        static launchPhotoInModal(id, title, url) {
+        static launchPhotoInModal(id) {
+            let photo = photoList[id];
             $("#test-album-modal-label").html(
-                this.photoDescription(id, title)
+                this.photoDescription(id, photo['title'])
             );
             $("#test-album-modal-display").html(
-                '<img src="' + url + '" alt="' + this.photoDescription(id, title) + '" style="" />'
+                '<img src="' + photo['url'] + '" alt="' + this.photoDescription(id, photo['title']) + '" style="width: 600px; height: 600px; min-width: 600px;" />'
             );
             let photoAlbumModal = new bootstrap.Modal(document.getElementById('test-album-modal'), {
                 keyboard: true
