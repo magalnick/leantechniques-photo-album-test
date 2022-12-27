@@ -1,64 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Lean TECHniques Photo Album
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Applicant
 
-## About Laravel
+- David Magalnick
+- [LinkedIn](https://www.linkedin.com/in/dmagalnick/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Create a console application that displays photo IDs and titles in an album.
+- The photos are available in [this online web service](https://jsonplaceholder.typicode.com/photos).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## In Addition to the Base Requirements
 
-## Learning Laravel
+- Web UI and API to display the photos in album in addition to the photo IDs and titles.
+- This uses the same model objects as the console application to demonstrate re-usability.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Language and Framework
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend
 
-## Laravel Sponsors
+- PHP 7.4/8.x
+- Laravel 8.x
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Frontend
 
-### Premium Partners
+- jQuery 3.6.1
+- Bootstrap 5.1.3
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Installation and System Requirements
 
-## Contributing
+### Install From Github
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+git clone git@github.com:magalnick/leantechniques-photo-album-test.git
+cd leantechniques-photo-album-test
+composer install
+```
 
-## Code of Conduct
+### System Requirements
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Any UNIX or Linux system running the above-mentioned PHP versions.
+- This was tested on:
+  - Ubuntu 20.04 with PHP 7.4.
+  - Mac OS with PHP 8.1.
 
-## Security Vulnerabilities
+## Files to Check
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+routes/api.php
+routes/web.php
+config/lean-techniques.php
+app/Console/Kernel.php
+app/Console/Commands/LeanTechniquesPhotoAlbum.php
+app/Http/Controllers/PhotoAlbumController.php
+app/Http/Response.php
+app/Models/Interfaces/PhotoAlbumModelInterface.php
+app/Models/PhotoAlbumAbstractModel.php
+app/Models/LeanTechniquesPhotoAlbumModel.php
+tests/Models/LeanTechniquesPhotoAlbumModelTest.php
+resources/views/site/main-template.blade.php
+resources/views/site/header.blade.php
+resources/views/site/footer.blade.php
+resources/views/js/site/footer.blade.php
+resources/views/leantechniques-photo-album.blade.php
+resources/views/js/leantechniques-photo-album.blade.php
+```
 
-## License
+## Special Notes
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- The server that I used to host this is a 2 year old Ubuntu 20.04 box running PHP 7.4, which limits the Laravel install to 8.x. Thus the slightly older versions of PHP and Laravel.
+- The base Laravel install is mostly untouched. My changes are primarily new files.
+- Since this is a throw together site with 1 page and 1 API call, there's no fancy multi-environment modifications. The `.env` file is committed directly to the git repo, even though that's a big no-no in the real world.
+- Along with unit tests for the different methods, I also manually tested the console application and the web page to figure out various scenarios that might break things.
+
+## Run the Console Application
+
+```
+php artisan cli:lean-techniques-photo-album <album_id>
+```
+
+## Run the Unit Tests
+
+```
+vendor/bin/phpunit tests/Models/LeanTechniquesPhotoAlbumModelTest.php
+```
+
+## Live Web Demo
+
+- [Check it out!](https://random-stuff.madmarye.com/)
